@@ -1,4 +1,4 @@
 WindowsRed
 ==========
 
-the game
+the game.
