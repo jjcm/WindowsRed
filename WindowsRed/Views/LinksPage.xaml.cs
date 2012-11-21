@@ -9,6 +9,7 @@ namespace WindowsRed.Views
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using RedditApi8;
@@ -38,11 +39,17 @@ namespace WindowsRed.Views
         private ObservableCollection<LinkData> links;
 
         /// <summary>
+        /// The subreddit used to display the title of the page.
+        /// </summary>
+        private string subreddit;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LinksPage" /> class.
         /// </summary>
         public LinksPage()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         /// <summary>
@@ -52,14 +59,31 @@ namespace WindowsRed.Views
         /// property is typically used to configure the page.</param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+            this.subreddit = e.Parameter == null ? string.Empty : e.Parameter as string;
+            this.Title.Text = string.IsNullOrEmpty(this.subreddit) ? "reddit" : string.Format("r/{0}", this.subreddit);
             this.client = new RedditClient("WindowsRed");
             this.links = new ObservableCollection<LinkData>();
-            foreach (LinkData link in await this.client.GetFrontPageAsync())
+
+            if (e.NavigationMode != NavigationMode.Back)
             {
-                this.links.Add(link);
+                foreach (LinkData link in await this.client.GetPageAsync(this.subreddit))
+                {
+                    this.links.Add(link);
+                }
             }
 
             this.mainList.ItemsSource = this.links;
+        }
+
+        /// <summary>
+        /// Click event handler for MainList.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="ItemClickEventArgs" /> instance containing the event data.</param>
+        private void MainListItemClick(object sender, ItemClickEventArgs e)
+        {
+            LinkData selectedLink = e.ClickedItem as LinkData;
+            this.Frame.Navigate(typeof(LinkPage), selectedLink);
         }
     }
 }
