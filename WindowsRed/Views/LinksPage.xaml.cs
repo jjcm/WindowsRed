@@ -59,17 +59,19 @@ namespace WindowsRed.Views
         /// property is typically used to configure the page.</param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                return;
+            }
+
             this.subreddit = e.Parameter == null ? string.Empty : e.Parameter as string;
             this.Title.Text = string.IsNullOrEmpty(this.subreddit) ? "reddit" : string.Format("r/{0}", this.subreddit);
             this.client = new RedditClient("WindowsRed");
             this.links = new ObservableCollection<LinkData>();
 
-            if (e.NavigationMode != NavigationMode.Back)
+            foreach (LinkData link in await this.client.GetPageAsync(this.subreddit))
             {
-                foreach (LinkData link in await this.client.GetPageAsync(this.subreddit))
-                {
-                    this.links.Add(link);
-                }
+                this.links.Add(link);
             }
 
             this.mainList.ItemsSource = this.links;

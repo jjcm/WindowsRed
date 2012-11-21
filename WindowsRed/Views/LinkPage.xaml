@@ -25,4 +25,14 @@
             <Grid x:Name="comments" Grid.Row="1" />
         </Grid>
     </Grid>
+
+    <Page.BottomAppBar>
+        <AppBar x:Name="appBar" Padding="10,0">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource BackButtonStyle}" Click="BackClick" AutomationProperties.Name="Back"/>
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
 </Page>
