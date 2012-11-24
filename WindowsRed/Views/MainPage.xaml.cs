@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace WindowsRed
+namespace WindowsRed.Views
 {
     using System;
     using System.Collections.Generic;
@@ -32,15 +32,15 @@ namespace WindowsRed
         public MainPage()
         {
             this.InitializeComponent();
-            this.Loaded += this.FrameLoaded;
+            this.Loaded += this.PageLoaded;
         }
 
         /// <summary>
-        /// Frames the loaded.
+        /// Event handler for when the page is loaded.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        private void FrameLoaded(object sender, RoutedEventArgs e)
+        private void PageLoaded(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(LinksPage));
         }
