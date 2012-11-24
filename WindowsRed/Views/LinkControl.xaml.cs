@@ -69,7 +69,7 @@ namespace WindowsRed.Views
                 instance.title.Text = link.Title;
                 instance.subredditName.Text = link.Subreddit;
                 instance.numberOfComments.Text = link.NumComments.ToString();
-                if (!string.IsNullOrEmpty(link.Thumbnail))
+                if (!string.IsNullOrEmpty(link.Thumbnail) && !string.Equals(link.Thumbnail, "self"))
                 {
                     instance.thumbnail.Source = new BitmapImage(new Uri(link.Thumbnail));
                 }
