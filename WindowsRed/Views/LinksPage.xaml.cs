@@ -64,16 +64,22 @@ namespace WindowsRed.Views
                 return;
             }
 
+            this.loading.Visibility = Visibility.Visible;
             this.subreddit = e.Parameter == null ? string.Empty : e.Parameter as string;
             this.Title.Text = string.IsNullOrEmpty(this.subreddit) ? "reddit" : string.Format("r/{0}", this.subreddit);
             this.client = new RedditClient("WindowsRed");
             this.links = new ObservableCollection<LinkData>();
+            List<LinkData> links = await this.client.GetPageAsync(this.subreddit);
 
-            foreach (LinkData link in await this.client.GetPageAsync(this.subreddit))
+            if (links != null)
             {
-                this.links.Add(link);
+                foreach (LinkData link in links)
+                {
+                    this.links.Add(link);
+                }
             }
 
+            this.loading.Visibility = Visibility.Collapsed;
             this.mainList.ItemsSource = this.links;
         }
 

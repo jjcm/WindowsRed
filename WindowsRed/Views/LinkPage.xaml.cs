@@ -39,13 +39,25 @@ namespace WindowsRed.Views
         /// </summary>
         /// <param name="e">Event data that describes how this page was reached.  The Parameter
         /// property is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter != null && e.Parameter is LinkData)
             {
+                this.loading.Visibility = Visibility.Visible;
                 LinkData link = e.Parameter as LinkData;
-                this.title.Text = string.Format("r/{0}", link.Subreddit);
+
+                // Pre-populate the information we have.
                 this.link.DataContext = link;
+                this.title.Text = string.Format("r/{0}", link.Subreddit);
+
+                // Get comments and updated link information.
+                RedditClient client = new RedditClient();
+                Tuple<LinkData, List<CommentData>> t = await client.GetCommentsAsync(link.Id);
+
+                // Set the bindings.
+                this.loading.Visibility = Visibility.Collapsed;
+                this.link.DataContext = t.Item1;
+                this.comments.ItemsSource = t.Item2;
             }
         }
 

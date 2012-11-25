@@ -105,6 +105,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\CommentControl.xaml.cs">
+      <DependentUpon>CommentControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LinkControl.xaml.cs">
       <DependentUpon>LinkControl.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,10 @@
     <Page Include="Common\StandardStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CommentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LinkControl.xaml">
       <SubType>Designer</SubType>

@@ -8,6 +8,7 @@
     mc:Ignorable="d">
 
     <Grid x:Name="mainGrid" Background="#2c2c2c">
+        <ProgressRing x:Name="loading" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="100" Visibility="Collapsed" IsActive="True" />
         <Border Background="#4093ce" Height="30" VerticalAlignment="Top">
             <TextBlock x:Name="title" FontSize="60" Margin="0,-20,0,0" />
         </Border>
@@ -22,7 +23,23 @@
 
             <local:LinkControl x:Name="link" Link="{Binding}" />
             <Grid x:Name="content" Grid.Row="1" />
-            <Grid x:Name="comments" Grid.Row="1" />
+            <ListView x:Name="comments"
+                      Grid.Row="2"
+                      SelectionMode="None"
+                      IsItemClickEnabled="False">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Height" Value="Auto" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <local:CommentControl Comment="{Binding}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </Grid>
 

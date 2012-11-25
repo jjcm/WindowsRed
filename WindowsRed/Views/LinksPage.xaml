@@ -8,6 +8,7 @@
     mc:Ignorable="d">
 
     <Grid x:Name="mainGrid" Background="#2c2c2c">
+        <ProgressRing x:Name="loading" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="100" Visibility="Collapsed" IsActive="True" />
         <Border Background="#4093ce" Height="30" VerticalAlignment="Top">
             <TextBlock x:Name="Title" FontSize="60" Margin="0,-20,0,0" />
         </Border>
