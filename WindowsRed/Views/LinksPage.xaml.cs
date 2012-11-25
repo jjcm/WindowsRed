@@ -29,11 +29,6 @@ namespace WindowsRed.Views
     public sealed partial class LinksPage : Page
     {
         /// <summary>
-        /// The client.
-        /// </summary>
-        private RedditClient client;
-
-        /// <summary>
         /// The links.
         /// </summary>
         private ObservableCollection<LinkData> links;
@@ -67,9 +62,8 @@ namespace WindowsRed.Views
             this.loading.Visibility = Visibility.Visible;
             this.subreddit = e.Parameter == null ? string.Empty : e.Parameter as string;
             this.Title.Text = string.IsNullOrEmpty(this.subreddit) ? "reddit" : string.Format("r/{0}", this.subreddit);
-            this.client = new RedditClient("WindowsRed");
             this.links = new ObservableCollection<LinkData>();
-            List<LinkData> links = await this.client.GetPageAsync(this.subreddit);
+            List<LinkData> links = await Global.Instance.RedditClient.GetPageAsync(this.subreddit);
 
             if (links != null)
             {

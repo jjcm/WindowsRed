@@ -51,8 +51,7 @@ namespace WindowsRed.Views
                 this.title.Text = string.Format("r/{0}", link.Subreddit);
 
                 // Get comments and updated link information.
-                RedditClient client = new RedditClient();
-                Tuple<LinkData, List<CommentData>> t = await client.GetCommentsAsync(link.Id);
+                Tuple<LinkData, List<CommentData>> t = await Global.Instance.RedditClient.GetCommentsAsync(link.Id);
 
                 // Set the bindings.
                 this.loading.Visibility = Visibility.Collapsed;
