@@ -32,6 +32,36 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <AppBar x:Name="appBar" VerticalAlignment="Bottom" />
+        <Popup x:Name="loginPopup">
+            <Border x:Name="loginPopupBackground" BorderThickness="3" BorderBrush="#2c2c2c" Background="White" Padding="20">
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Login" Grid.Row="0" Grid.Column="0" FontSize="40" Foreground="#2c2c2c" />
+                    <TextBlock x:Name="userNameWaterMark" Grid.Row="1" Grid.Column="0" Margin="0,20,0,0" Width="500" FontSize="30" Foreground="Black" Text="User Name" />
+                    <TextBox x:Name="userName" Grid.Row="1" Grid.Column="0" Margin="0,20,0,0" BorderThickness="1" BorderBrush="#2c2c2c" Width="500" LostFocus="UserNameTextBoxLostFocus" />
+                    <TextBlock x:Name="passwordWaterMark" Grid.Row="2" Grid.Column="0" Margin="0,20,0,0" Width="500" FontSize="30" Foreground="Black" Text="Password" />
+                    <PasswordBox x:Name="password" Grid.Row="2" Grid.Column="0" Margin="0,20,0,0" BorderThickness="1" BorderBrush="#2c2c2c" Width="500" LostFocus="PasswordTextBoxLostFocus" />
+                    <Button x:Name="popupLoginButton" Grid.Row="2" Grid.Column="1" Content="Login" Margin="20,20,0,0" Foreground="#2c2c2c" BorderBrush="#2c2c2c" Click="PopupLoginButtonClick" />
+                </Grid>
+            </Border>
+        </Popup>
     </Grid>
+    <Page.BottomAppBar>
+        <AppBar x:Name="appBar" VerticalAlignment="Bottom">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button x:Name="loginButton" Click="LoginButtonClick" Style="{StaticResource AddAppBarButtonStyle}" AutomationProperties.Name="Sign In" />
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
 </Page>
